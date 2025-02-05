@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Page By Brandon</title>
+    <meta name="description" content="Une page de sécurité !">
+    <link rel="stylesheet" href="css/css.css">
+    <link rel="shortcut icon" href="./img/logo.jpg" type="image/x-icon">
+</head>
+<body>
+    <script src="./js/pin.js"></script>4
+    <!-- <div class="webcam" id="webcam">
+        <video autoplay="true" id="videoElement" width="400" height="250"></video>
+    </div> -->
+    <div class="container" id="container">
+        <h1>Alarme Securité Auth</h1>
+        <p>Entré votre code pin pour y accéder</p>
+        <input type="password" class="pin" id="pin" size="4" maxlength="4" placeholder="****" required /><br>
+        <button type="submit" class="submit" id="submit" onclick="PinAlarmeUser()">Confirmer</button>
+        <p id="Statut"></p>
+        <p id="Statut2"></p>
+        <audio id="fail" src="./alarmeintru.mp3"></audio>
+        <audio id="succes" src="./level-up-bonus-sequence-3-186892.mp3"></audio>
+    </div>
+
+</body>
+</html>

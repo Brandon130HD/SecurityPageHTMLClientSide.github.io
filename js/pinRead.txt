@@ -1,0 +1,81 @@
+
+let attemptStart = 0;
+let attemptMax = 3;
+let machineId = localStorage.getItem('MachineId');
+let $ = "1234";
+let HARDWARDERROR = "";
+if (!machineId) {
+    machineId = crypto.randomUUID();
+    localStorage.setItem('MachineId', machineId);
+}
+   
+function PinAlarmeUser() 
+{
+    var container = document.getElementById('container');
+    // var webcam = document.getElementById('webcam');
+    var Pinoutput = document.getElementById('pin').value;
+    var Pinoutput2 = document.getElementById('pin');
+    var textStatut = document.getElementById('Statut');
+    var textStatut2 = document.getElementById('Statut2');
+    var submit = document.getElementById('submit');
+    var audio = document.getElementById('fail');
+    var audio2 = document.getElementById('succes');
+
+    if(Pinoutput === $) {
+        console.log('TEST OUI')
+        textStatut.textContent = `✅ ACCES REUSSIE ✅`;
+        textStatut.style.color = 'green';
+        container.style.border = "4px solid rgb(38, 255, 0)";
+        audio2.play();
+        document.body.style.boxShadow = "10px 10px 10px green";
+        // webcam.style.border = "4px solid rgb(38, 255, 0)";
+    } else {
+        console.log('NON');
+        attemptStart++;
+        textStatut.textContent = `Code incorrect ! | Essaie ${attemptStart} / ${attemptMax}`;
+        textStatut.style.color = 'red';
+        console.log(attemptStart);
+        Pinoutput.textContent = '';
+    }
+
+    if(attemptStart >= attemptMax || HARDWARDERROR === machineId) {
+        textStatut.textContent = `❌ ACCES BLOQUÉ ${attemptStart} / ${attemptMax} ❌`;
+        textStatut2.textContent = `🔰 ALERT ENVOYÉ AU PROPRIETAIRE 🔰`;
+        Pinoutput2.disabled = true;
+        submit.disabled = true;
+        submit.style.cursor = 'not-allowed';
+        container.style.border = "4px solid rgb(255, 0, 0)";
+        // webcam.style.border = "4px solid rgb(255, 0, 0)";
+        audio.play();
+        document.body.style.boxShadow = "10px 10px 10px red";
+        console.log(machineId);
+        HARDWARDERROR = machineId;
+    }
+}
+
+async function startwebcam() 
+{
+    try 
+    {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true});
+        document.getElementById("videoElement").srcObject = stream;
+    }    
+    
+    catch (error)
+    {
+        console.log('Erreur dacces webcam', error)
+    } 
+}
+// startwebcam()
+
+function getMachineId() {
+    
+    let machineId = localStorage.getItem('MachineId');
+    
+    if (!machineId) {
+        machineId = crypto.randomUUID();
+        localStorage.setItem('MachineId', machineId);
+    }
+
+    return machineId;
+}
